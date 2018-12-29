@@ -33,8 +33,8 @@ Data structures:
 
 Plan:
 Tim - Board and battleship generation. Make handshake connection work between users.
-Sophia -
-Anand -
+Sophia - Sending/receiving what the opponent's move was.
+Anand - The "game" part - asking what move you want, how it hit, the stats of each ship, if something sunk etc.
 
 =====[Timeline]=====
 January 2 - Finalize all plans and create initial files.
