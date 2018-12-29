@@ -3,9 +3,9 @@ Group Members: Tim Marder, Sophia Xia, Anand Idris
 
 =====[Description]=====
 
-A Battleship game in which two terminals can connect to each other the various moves that each side made for each turn.
+A Battleship game in which two terminals can connect to each other the various moves that each side made for each turn. (able to connect on separate computers)
 
-Each player will have, at all times, access to the stats of each ship that they have, an ASCII grid of their own board, and an ASCII grid of the opponent's board (blanked out, of course).
+Each player will have, at all times, access to the stats of each ship that they have, an ASCII grid of their own board, and an ASCII grid of the opponent's board (blanked out, of course). The player's attempts to hit the opponent's ships will be marked down on this grid.
 
 =====[How to Use]=====
 
@@ -22,7 +22,7 @@ This is the determine player 1 and player 2.
 =====[Technical Design]=====
 
 Topics:
-Shared Memory - Savings the hits & misses of the Battleship. Also saving the state of the board.
+Shared Memory - Savings the hits & misses of the Battleship. Also saving the state of the board. (but the position of the boats will not be accessible by the opponent)
 Networking - Will be major part of the project. Will supply the connection between the two players.
 Working with files - Users choose the coordinates of their battleships.
 Memory Allocation - Storing stats, status of ships, and names.
@@ -31,7 +31,7 @@ Pipes - Sending info about hits and misses.
 Data structures:
 2D Array - For the board coordinates.
 
-Plan:
+=====[Plan]=====
 Tim - Board and battleship generation. Make handshake connection work between users.
 Sophia - Sending/receiving what the opponent's move was.
 Anand - The "game" part - asking what move you want, how it hit, the stats of each ship, if something sunk etc.
