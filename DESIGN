@@ -3,7 +3,9 @@ Group Members: Tim Marder, Sophia Xia, Anand Idris
 
 =====[Description]=====
 
+A Battleship game in which two terminals can connect to each other the various moves that each side made for each turn.
 
+Each player will have, at all times, access to the stats of each ship that they have, an ASCII grid of their own board, and an ASCII grid of the opponent's board (blanked out, of course).
 
 =====[How to Use]=====
 
