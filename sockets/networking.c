@@ -1,4 +1,14 @@
+#include <fcntl.h>
+#include <unistd.h>
 #include "networking.h"
+#include 'ip.txt'
+
+void get_ip(){
+  int fd = open("ip.txt", O_RDONLY);
+  char *buffer = malloc(sizeof(char) *15);
+  int result = read(fd, buffer, sizeof(char) *15);
+  //convert ip address into machine readable
+}
 
 void error_check( int i, char *s ) {
   if ( i < 0 ) {
