@@ -27,24 +27,32 @@ struct Ship{
   int health;
   int starting_coors;
   int orient;
+};
+  
+struct Ship modify(int _size, int _health, int _starting_coors, int_orient){
+  struct ship s;
+  s.size = _size;
+  s.health = _health;
+  s.starting_coors = _starting_coors;
+  s.orient = _orient;
+  return s;
 }
-
-
-  struct Ship carrier(){
+/*
+struct Ship carrier(){
     
 struct Ship battleship;
 struct Ship cruiser;
 struct Ship submarine;
 struct Ship destroyer;
+*/
+    int parse_args(char * coors){
+      //Ship components:
+      
+      
+      int alphagen(){
+	return 0;
+      }
 
-int parse_args(char * coors){
-  //Ship components:
-
-  
-int alphagen(){
-  return 0;
-}
-
-int betagen(){
+      int betagen(){
 }
 
