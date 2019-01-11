@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int main() {
+int gen() {
 
     printf("\n");
-
+    /*
     printf("    0 1 2 3 4 5 6 7 8 9\n");
     printf("  -----------------------\n");
     printf("A | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
@@ -19,5 +19,32 @@ int main() {
     printf("I | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
     printf("J | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
     printf("  -----------------------\n");
-
+    */
 }
+
+struct Ship{
+  int size;
+  int health;
+  int starting_coors;
+  int orient;
+}
+
+
+  struct Ship carrier(){
+    
+struct Ship battleship;
+struct Ship cruiser;
+struct Ship submarine;
+struct Ship destroyer;
+
+int parse_args(char * coors){
+  //Ship components:
+
+  
+int alphagen(){
+  return 0;
+}
+
+int betagen(){
+}
+
