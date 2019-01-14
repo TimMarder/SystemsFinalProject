@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -16,10 +17,10 @@
 #define PORT "9001"
 #define TEST_IP "127.0.0.1"
 
+char *get_ip();
 void error_check(int i, char *s);
 int server_setup();
 int server_connect(int sd);
 int client_setup(char * server);
-
 
 #endif
