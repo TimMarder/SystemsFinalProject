@@ -21,6 +21,12 @@ int sub_coors[3];
 int destroyer_coors[3];
 
 //int coors[5][2];
+int main() {
+
+  give_coors("alphaCoords.txt");
+  
+}
+
 
 int gen() {
 
@@ -43,11 +49,14 @@ int gen() {
 }
 
 int give_coors(char * filename){
-  FILE *fp;
-  if(fp = fopen(filename, "r")){
-    printf("Coordinates file not found.");
-    exit(1);
-  }
+  int coordfile;
+  char *coordinates = (char *)malloc(360);
+  coordfile  = open(filename, O_RDONLY);
+  read(coordfile, coordinates, 360);
+  close(coordfile);
+
+  printf("%s",coordinates);
+  
   
   
 }
