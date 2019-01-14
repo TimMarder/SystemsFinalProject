@@ -2,6 +2,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+//5: Carrier
+//4: Battleship
+//3: Cruiser
+//3: Submarine
+//2: Destroyer
+
+/*
+Array_coors[3]:
+[0] = Row count (A-J/0-9);
+[1] = Column Count (0-9);
+[2] = Orientation (0 = Horizontal, 1 = Vertical);
+*/
+int carrier_coors[3];
+int bship_coors[3];
+int cruiser_coors[3];
+int sub_coors[3];
+int destroyer_coors[3];
+
+//int coors[5][2];
+
 int gen() {
 
     printf("\n");
@@ -22,14 +42,23 @@ int gen() {
     */
 }
 
-struct Ship{
+int give_coors(char * filename){
+  FILE *fp;
+  if(fp = fopen(filename, "r")){
+    printf("Coordinates file not found.");
+    exit(1);
+  }
+  
+  
+}
+struct ship{
   int size;
   int health;
   int starting_coors;
   int orient;
 };
   
-struct Ship modify(int _size, int _health, int _starting_coors, int_orient){
+struct ship modify(int _size, int _health, int _starting_coors, int _orient){
   struct ship s;
   s.size = _size;
   s.health = _health;
@@ -37,6 +66,10 @@ struct Ship modify(int _size, int _health, int _starting_coors, int_orient){
   s.orient = _orient;
   return s;
 }
+
+
+
+
 /*
 struct Ship carrier(){
     
