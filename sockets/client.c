@@ -12,6 +12,8 @@ char *get_ip(){
   printf("Error %d: %s\n", result, strerror(result));
   
   printf("buffer: %s\n", buff);
+  if(strstr(buff, "\n"))
+    buff[strlen(buff) -1] = '\0';
   //char *address = buff;
   //free(buff);
   //return address;
@@ -24,8 +26,10 @@ int main(int argc, char **argv) {
   char buffer[BUFFER_SIZE];
 
   //if (argc == 2)
-  if (*get_ip() != '\0')
-    server_socket = client_setup( get_ip() );
+  //if (*get_ip() != '\0')
+  //server_socket = client_setup( get_ip() );
+  if(argc == 2)
+    server_socket = client_setup( argv[1] );
   else
     server_socket = client_setup( TEST_IP );
 
