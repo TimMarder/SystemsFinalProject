@@ -1,5 +1,7 @@
 #include "networking.h"
 
+//149.89.1.24
+
 void process(char *s);
 void subserver(int from_client);
 

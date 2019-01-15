@@ -24,9 +24,10 @@ int main(int argc, char **argv) {
   char buffer[BUFFER_SIZE];
 
   //if (argc == 2)
-  server_socket = client_setup( get_ip() );
-  //else
-  //server_socket = client_setup( TEST_IP );
+  if (*get_ip() != '\0')
+    server_socket = client_setup( get_ip() );
+  else
+    server_socket = client_setup( TEST_IP );
 
   while (1) {
     printf("enter data: ");

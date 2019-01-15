@@ -28,6 +28,27 @@ int main() {
 }
 
 
+char *grid[13][14];
+void createGrid(){
+  for(int row = 0; i< 13; row++){
+    for(int col = 0; i< 14; col++){
+      if(row == 0){
+	if(col < 2){
+	  grid[row][col] = "    ";
+	}
+	else{
+	  grid[row][col] = sprintf(col-1);
+	}
+      }
+      
+      if(row == 1 || row == 12){
+      }
+      else{
+      }
+    }
+  }
+}
+
 int gen() {
 
     printf("\n");
