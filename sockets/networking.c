@@ -1,23 +1,5 @@
 #include "networking.h"
 
-char *get_ip(){
-
-  int fd = open("ip.txt", O_RDONLY);
-  printf("opening: %s\n", strerror(errno));  
-
-  char *buff = malloc(16 *sizeof(char));
-  printf("mallocing: %s\n", strerror(errno));
-
-  int result = read(fd, buff, sizeof(char));
-  printf("Error %d: %s\n", result, strerror(result));
-
-  printf("buffer: %s\n", buff);
-  //char *address = buff;
-  //free(buff);
-  //return address;
-  return buff;
-}
-
 void error_check( int i, char *s ) {
   if ( i < 0 ) {
     printf("[%s] error %d: %s\n", s, errno, strerror(errno) );
@@ -34,7 +16,7 @@ void error_check( int i, char *s ) {
 
   returns the socket descriptor
   =========================*/
-int server_setup(char *address) {
+int server_setup() {
   int sd, i;
 
   //create the socket
@@ -48,7 +30,7 @@ int server_setup(char *address) {
   hints->ai_family = AF_INET;  //IPv4 address
   hints->ai_socktype = SOCK_STREAM;  //TCP socket
   hints->ai_flags = AI_PASSIVE;  //Use all valid addresses
-  getaddrinfo(address, PORT, hints, &results); //NULL means use local address
+  getaddrinfo(NULL, PORT, hints, &results); //NULL means use local address
 
   //bind the socket to address and port
   i = bind( sd, results->ai_addr, results->ai_addrlen );
