@@ -20,57 +20,50 @@ int cruiser_coors[3];
 int sub_coors[3];
 int destroyer_coors[3];
 
-
 char *grid_one[13][13];
 char *grid_two[13][13];
 
 void create_grid(char *grid[13][13]){
-  char s[10];
-  char coorval = 'A';
-  for(int row = 0; row< 13; row++){
+  int c, i;
+  char *alpha[10]= {"A ","B ","C ","D ","E ","F ","G ","H ","I ","J "};
+  for (c = 0; c < 10; c++){
+    for (i = 2; i < 12; i++){
+      grid[0][i] = alpha[c];
+    }
+  }
+  char *num[10]= {"0 ","1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 "};
+  for (c = 0; c < 10; c++){
+    for (i = 2; i < 12; i++){
+      grid[i][0] = num[c];
+    }
+  }
+  for(int row = 0; row < 13; row++){
     for(int col = 0; col< 13; col++){
+      //    0 1 2 3 4 5 6 7 8 9\n
       if(row == 0){
 	if(col < 2)
 	  grid[row][col] = "  ";
-	else
-	  sprintf(s, "%d", col-3);
-	  grid[row][col] = s;
+	else if(col == 12)
+	  grid[row][col] ="\n";
       }      
       else if(row == 1 || row == 12){
-	grid[row][col] = "--";
+	if(col == 12)
+	  grid[row][col] = "--\n";
+	else
+	  grid[row][col] = "--";
       }
       else{
 	if(col == 0){
-	  grid[row][col] = ;
-	  coorval++;
 	}
-	else if(col == 1 || col == 12)
+	else if(col == 1)
+	  grid[row][col] = "| ";
+	else if(col == 12)
 	  grid[row][col] = "|\n";
 	else
 	  grid[row][col] = "~ ";
       }
     }
-  }
-}
-
-int gen() {
-
-    printf("\n");
-    /*
-    printf("    0 1 2 3 4 5 6 7 8 9\n");
-    printf("  -----------------------\n");
-    printf("A | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("B | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("C | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("D | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("E | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("F | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("G | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("H | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("I | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("J | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |\n");
-    printf("  -----------------------\n");
-    */
+  }  
 }
 
 int give_coors(char * filename){
