@@ -20,30 +20,32 @@ int cruiser_coors[3];
 int sub_coors[3];
 int destroyer_coors[3];
 
-//int coors[5][2];
-int main() {
 
-  give_coors("alphaCoords.txt");
-  
-}
+char *grid_one[13][13];
+char *grid_two[13][13];
 
-
-char *grid[13][14];
-void createGrid(){
-  for(int row = 0; i< 13; row++){
-    for(int col = 0; i< 14; col++){
+void create_grid(char *grid[13][13]){
+  char s[10];
+  for(int row = 0; row< 13; row++){
+    for(int col = 0; col< 13; col++){
       if(row == 0){
-	if(col < 2){
-	  grid[row][col] = "    ";
-	}
-	else{
-	  grid[row][col] = sprintf(col-1);
-	}
-      }
-      
-      if(row == 1 || row == 12){
+	if(col < 2)
+	  grid[row][col] = "  ";
+	else
+	  sprintf(s, "%d", col-3);
+	  grid[row][col] = s;
+      }      
+      else if(row == 1 || row == 12){
+	grid[row][col] = "--";
       }
       else{
+	if(col == 0){
+	  grid[row][col] = "A";
+	}
+	else if(col == 1 || col == 12)
+	  grid[row][col] = "|\n";
+	else
+	  grid[row][col] = "~ ";
       }
     }
   }
@@ -72,7 +74,7 @@ int gen() {
 int give_coors(char * filename){
   int coordfile;
   char *coordinates = (char *)malloc(360);
-  coordfile  = open(filename, O_RDONLY);
+  //coordfile  = open(filename, O_RDONLY);
   read(coordfile, coordinates, 360);
   close(coordfile);
 
@@ -108,7 +110,7 @@ struct Ship cruiser;
 struct Ship submarine;
 struct Ship destroyer;
 */
-    int parse_args(char * coors){
+int parse_args(char * coors){
       //Ship components:
       
       
@@ -117,5 +119,24 @@ struct Ship destroyer;
       }
 
       int betagen(){
+      }
 }
 
+int main(){
+  //int coors[5][2];
+  give_coors("alphaCoords.txt");
+
+  create_grid(grid_one);
+  create_grid(grid_two);
+  for(int r = 0; r < 13; r++){
+    for(int c = 0; c < 13; c++){
+      printf("%s", grid_one[r][c]);
+    }
+  }
+  for(int r = 0; r < 13; r++){
+    for(int c = 0; c < 13; c++){
+      printf("%s", grid_two[r][c]);
+    }
+  }
+
+}

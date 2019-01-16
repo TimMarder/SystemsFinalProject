@@ -1,12 +1,12 @@
-forking: client pserver
+forking: client fserver
 
 select: sclient sserver
 
 sserver: select_server.o networking.o
 	gcc -o server select_server.o networking.o
 
-pserver: persistent_server.o networking.o
-	gcc -o server persistent_server.o networking.o
+fserver: forking_server.o networking.o
+	gcc -o server forking_server.o networking.o
 
 sclient: select_client.o networking.o
 	gcc -o client select_client.o networking.o
@@ -23,8 +23,8 @@ client.o: client.c networking.h
 select_server.o: select_server.c networking.h
 	gcc -c select_server.c
 
-persistent_server.o: persistent_server.c networking.h
-	gcc -c persistent_server.c
+forking_server.o: forking_server.c networking.h
+	gcc -c forking_server.c
 
 networking.o: networking.c networking.h
 	gcc -c networking.c
