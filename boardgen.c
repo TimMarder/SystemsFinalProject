@@ -26,6 +26,7 @@ char *grid_two[13][13];
 
 void create_grid(char *grid[13][13]){
   char s[10];
+  char coorval = 'A';
   for(int row = 0; row< 13; row++){
     for(int col = 0; col< 13; col++){
       if(row == 0){
@@ -40,7 +41,8 @@ void create_grid(char *grid[13][13]){
       }
       else{
 	if(col == 0){
-	  grid[row][col] = "A";
+	  grid[row][col] = ;
+	  coorval++;
 	}
 	else if(col == 1 || col == 12)
 	  grid[row][col] = "|\n";
