@@ -122,6 +122,17 @@ int parse_args(char * coors){
       }
 }
 
+int * command_handle(){
+  //Ex: A4
+  char * steve = calloc(100,sizeof(char));
+  fgets(steve, 100, stdin);
+  int horizontal = steve[0] - 40 + 2; //Numerical value = Unicode Char - 40 shifted 2   
+  int vertical = steve[1] + 2; //Second value shifted 2
+  int coors[2] = {horizontal,vertical};
+  return coors;
+}
+
+  
 int main(){
   //int coors[5][2];
   give_coors("alphaCoords.txt");
