@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+
 
 //5: Carrier
 //4: Battleship
@@ -14,12 +16,8 @@ Array_coors[3]:
 [0] = Row count (A-J/0-9);
 [1] = Column Count (0-9);
 [2] = Orientation (0 = Horizontal, 1 = Vertical);
+[3] = Length of Ship;
 */
-int carrier_coors[3];
-int bship_coors[3];
-int cruiser_coors[3];
-int sub_coors[3];
-int destroyer_coors[3];
 
 char *grid_one[10][10];
 char *grid_two[10][10];
@@ -68,26 +66,53 @@ int check_coor(char *coor){
   else
     return 1;
 }
-/*
-int check_ship_placement(char *coor, int ship_len){
-  char *end_coor[2];
-  if(coor[2] != '0' || coor[2] != '1')
-    return 0;
-  else if(coor[2] == 0){
-    end_coor[1] = coor[1] -'A' + ship_len;
+
+char **get_ship_placement(){
+  int fd = open("alphaCoords.txt", O_RDONLY);
+  char *buffer = malloc(sizeof(char)*25);
+  int result = read(fd, buffer, sizeof(char)*25);
+  printf("%s\n", buffer);
+  char **arr = calloc(256, 5);
+  for(int i = 0; i < 5; i++){
+    arr[i] = strsep(&buffer, "\n");
+    printf("%s\t", arr[i]);
   }
-  else if(coor[2] == 1){
-    end_coor[0] = coor[0] -'0' + ship_len;
+  printf("\n");
+  return arr;
+}
+
+void place_ships(){
+  char **arr = get_ship_placement();
+  for(int i = 0; i < 5; i ++){
+    int a = get_alpha_coor(arr[i]);
+    int n = get_num_coor(arr[i]);
+    char orien = (arr[i])[2];
+    int len = (arr[i])[3]-'0';
+    if(orien == 'V'){
+      for(int i = a; i < a +len; i++){
+	grid_two[i][n] = "@ ";
+      }
+    }
+    if(orien == 'H'){
+      for(int i = n; i < n +len; i++){
+	grid_two[a][i] = "@ ";
+      }
+    }
   }
-  if(strlen(coor) != 3)
-    return 0;
-  else if(!check_coor(coor))
-    return 0;
-  else if(!check_coor(end_coor))
-    return 0;
-  else
-    return 1;
-    }*/
+}
+
+int check_lose(){
+  for(int r = 0; r < 10; r++){
+    for(int c = 0; c < 10; c++){
+      if(grid_two[r][c] == "@ "){
+	//printf("DID NOT LOSE\n");
+	return 0;
+      }
+    }
+  }
+  //printf("LOSE\n");
+  return 1;
+}
 
 int give_coors(char * filename){
   int coordfile;
@@ -95,39 +120,10 @@ int give_coors(char * filename){
   //coordfile  = open(filename, O_RDONLY);
   read(coordfile, coordinates, 360);
   close(coordfile);
-
-  printf("%s",coordinates);
   
-  
-  
-}
-struct ship{
-  int size;
-  int health;
-  int starting_coors;
-  int orient;
-};
-  
-struct ship modify(int _size, int _health, int _starting_coors, int _orient){
-  struct ship s;
-  s.size = _size;
-  s.health = _health;
-  s.starting_coors = _starting_coors;
-  s.orient = _orient;
-  return s;
+  printf("%s",coordinates);  
 }
 
-
-
-
-/*
-struct Ship carrier(){
-    
-struct Ship battleship;
-struct Ship cruiser;
-struct Ship submarine;
-struct Ship destroyer;
-*/
 int parse_args(char * coors){
       //Ship components:
       
@@ -151,7 +147,7 @@ int * command_handle(){
   return coors;
 }
 */
-  
+
 int main(int argc, int *argv[]){
   //int coors[5][2];
   //give_coors("alphaCoords.txt");
@@ -160,4 +156,8 @@ int main(int argc, int *argv[]){
   populate_grid(grid_two);
   print_grid(grid_one);
   print_grid(grid_two);
+  get_ship_placement();
+  place_ships();
+  print_grid(grid_two);
+  check_lose();
 }

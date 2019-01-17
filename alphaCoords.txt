@@ -1,5 +1,5 @@
-A 0 H
-C 1 V
-G 6 V
-J 4 H
-B 8 V
+A0H5
+C1V4
+G6V3
+J4H3
+B8V2
