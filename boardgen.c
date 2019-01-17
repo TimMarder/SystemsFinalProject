@@ -30,20 +30,23 @@ void populate_grid(char *grid[10][10]){
   }
 }
 
-void print_grid(char *grid[10][10]){
+void print_grids(){
   char val = 'A';
-  printf("     0 1 2 3 4 5 6 7 8 9\n");
-  printf("--------------------------\n");
+  printf("     0 1 2 3 4 5 6 7 8 9  \t     0 1 2 3 4 5 6 7 8 9  \n");
+  printf("--------------------------\t--------------------------\n");
   for(int r = 0; r < 10; r ++){
     printf(" %c | ", val);
+    for(int c = 0; c < 10; c ++){
+      printf("%s", grid_one[r][c]);
+    }
+    printf("|\t %c | ", val);
     val ++;
     for(int c = 0; c < 10; c ++){
-      printf("%s", grid[r][c]);
+      printf("%s", grid_two[r][c]);
     }
-    printf("\n");
+    printf("|\n");
   }
-  printf("--------------------------\n");
-  
+  printf("--------------------------\t--------------------------\n");  
 }
 
 int get_alpha_coor(char *coor){
@@ -101,6 +104,28 @@ void place_ships(){
   }
 }
 
+int under_attack(char *coor){
+  int a = get_alpha_coor(coor);
+  int n = get_num_coor(coor);
+  if(grid_two[a][n] == "@ "){
+    grid_two[a][n] = "X ";
+    return 1;
+  }
+  else{
+    grid_two[a][n] = "O ";
+    return 0;
+  }
+}
+
+void check_hit(char *attack, int i){
+  int a = get_alpha_coor(attack);
+  int n = get_num_coor(attack);  
+  if(i)
+    grid_one[a][n] = "X ";
+  else
+    grid_one[a][n] = "O ";
+}
+
 int check_lose(){
   for(int r = 0; r < 10; r++){
     for(int c = 0; c < 10; c++){
@@ -112,16 +137,6 @@ int check_lose(){
   }
   //printf("LOSE\n");
   return 1;
-}
-
-int give_coors(char * filename){
-  int coordfile;
-  char *coordinates = (char *)malloc(360);
-  //coordfile  = open(filename, O_RDONLY);
-  read(coordfile, coordinates, 360);
-  close(coordfile);
-  
-  printf("%s",coordinates);  
 }
 
 int parse_args(char * coors){
@@ -149,15 +164,24 @@ int * command_handle(){
 */
 
 int main(int argc, int *argv[]){
-  //int coors[5][2];
-  //give_coors("alphaCoords.txt");
   printf("Welcome to Battleships!\n");
   populate_grid(grid_one);
   populate_grid(grid_two);
-  print_grid(grid_one);
-  print_grid(grid_two);
+  print_grids();
+
+  printf("Please input your ship coordinates in the file alphaCoords.txt provided\nFormat:RowColumnOrientationLength\nNew line for each ship\nExample:\nA4H5\n");
   get_ship_placement();
   place_ships();
-  print_grid(grid_two);
+  print_grids();
+
+  under_attack("A1"); 
+  under_attack("C3");
+  print_grids();
+  check_hit("A1", 0);
+  check_hit("C7", 1);
+  check_hit("D4", 0);
+  check_hit("J6", 1);
+  print_grids();
+
   check_lose();
 }
