@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 //5: Carrier
 //4: Battleship
@@ -20,51 +21,73 @@ int cruiser_coors[3];
 int sub_coors[3];
 int destroyer_coors[3];
 
-char *grid_one[13][13];
-char *grid_two[13][13];
+char *grid_one[10][10];
+char *grid_two[10][10];
 
-void create_grid(char *grid[13][13]){
-  int c, i;
-  char *alpha[10]= {"A ","B ","C ","D ","E ","F ","G ","H ","I ","J "};
-  for (c = 0; c < 10; c++){
-    for (i = 2; i < 12; i++){
-      grid[0][i] = alpha[c];
+void populate_grid(char *grid[10][10]){
+  for(int r = 0; r < 10; r ++){
+    for(int c = 0; c < 10; c ++){
+      grid[r][c] = "~ ";
     }
   }
-  char *num[10]= {"0 ","1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 "};
-  for (c = 0; c < 10; c++){
-    for (i = 2; i < 12; i++){
-      grid[i][0] = num[c];
-    }
-  }
-  for(int row = 0; row < 13; row++){
-    for(int col = 0; col< 13; col++){
-      //    0 1 2 3 4 5 6 7 8 9\n
-      if(row == 0){
-	if(col < 2)
-	  grid[row][col] = "  ";
-	else if(col == 12)
-	  grid[row][col] ="\n";
-      }      
-      else if(row == 1 || row == 12){
-	if(col == 12)
-	  grid[row][col] = "--\n";
-	else
-	  grid[row][col] = "--";
-      }
-      else{
-	if(col == 0){
-	}
-	else if(col == 1)
-	  grid[row][col] = "| ";
-	else if(col == 12)
-	  grid[row][col] = "|\n";
-	else
-	  grid[row][col] = "~ ";
-      }
-    }
-  }  
 }
+
+void print_grid(char *grid[10][10]){
+  char val = 'A';
+  printf("     0 1 2 3 4 5 6 7 8 9\n");
+  printf("--------------------------\n");
+  for(int r = 0; r < 10; r ++){
+    printf(" %c | ", val);
+    val ++;
+    for(int c = 0; c < 10; c ++){
+      printf("%s", grid[r][c]);
+    }
+    printf("\n");
+  }
+  printf("--------------------------\n");
+  
+}
+
+int get_alpha_coor(char *coor){
+  char s = coor[0];
+  return s -'A';
+}
+
+int get_num_coor(char *coor){
+  char s = coor[1];
+  return s -'0';
+}
+
+int check_coor(char *coor){
+  if(strlen(coor) != 2)
+    return 0;
+  else if(coor[0] < 'A' || coor[0] > 'J')
+    return 0;
+  else if(coor[1] < '0' || coor[1] > '9')
+    return 0;
+  else
+    return 1;
+}
+/*
+int check_ship_placement(char *coor, int ship_len){
+  char *end_coor[2];
+  if(coor[2] != '0' || coor[2] != '1')
+    return 0;
+  else if(coor[2] == 0){
+    end_coor[1] = coor[1] -'A' + ship_len;
+  }
+  else if(coor[2] == 1){
+    end_coor[0] = coor[0] -'0' + ship_len;
+  }
+  if(strlen(coor) != 3)
+    return 0;
+  else if(!check_coor(coor))
+    return 0;
+  else if(!check_coor(end_coor))
+    return 0;
+  else
+    return 1;
+    }*/
 
 int give_coors(char * filename){
   int coordfile;
@@ -117,6 +140,7 @@ int parse_args(char * coors){
       }
 }
 
+/*
 int * command_handle(){
   //Ex: A4
   char * steve = calloc(100,sizeof(char));
@@ -126,23 +150,14 @@ int * command_handle(){
   int coors[2] = {horizontal,vertical};
   return coors;
 }
-
+*/
   
-int main(){
+int main(int argc, int *argv[]){
   //int coors[5][2];
-  give_coors("alphaCoords.txt");
-
-  create_grid(grid_one);
-  create_grid(grid_two);
-  for(int r = 0; r < 13; r++){
-    for(int c = 0; c < 13; c++){
-      printf("%s", grid_one[r][c]);
-    }
-  }
-  for(int r = 0; r < 13; r++){
-    for(int c = 0; c < 13; c++){
-      printf("%s", grid_two[r][c]);
-    }
-  }
-
+  //give_coors("alphaCoords.txt");
+  printf("Welcome to Battleships!\n");
+  populate_grid(grid_one);
+  populate_grid(grid_two);
+  print_grid(grid_one);
+  print_grid(grid_two);
 }
