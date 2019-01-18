@@ -46,12 +46,14 @@ void initialize_grid(){
 
 //Prints out array.
 void print_grid(){
+  int row = 0;
   printf("A B C D E F G H I J\n");
   for (int i = 0; i < 10; i++){
     for (int j = 0; j < 10; j++){
        printf("%c ",grid[i][j]);
     }
-    printf("\n");
+    printf("%d\n",row);
+    row++;
   }
   return;
 } 
@@ -75,6 +77,11 @@ int hit_detection(char * coors){
 }
 int get_letter(char* coor){
   char s= coor[0];
+  return 0;
+}
+//Returns 0 if that area was already hit.
+//Returns 1 if successful.
+int modify_grid(char mark, char * coors){
   return 0;
 }
 
