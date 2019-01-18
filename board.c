@@ -80,7 +80,8 @@ int get_letter(char* coor){
 
 int check_hit(char * attack){
   int letter = attack[0] - 'A';
-  printf('%s',attack[0]);
+  printf("%c\n",attack[0]);
+  printf("%d\n",letter);
   return 0;
 }
 
@@ -90,6 +91,6 @@ int main(){
   initialize_grid();
   printf("\n\n\n");
   print_grid();
-  check_hit("A0");
+  check_hit("Z0");
   return 0;
 }
