@@ -10,17 +10,21 @@ char grid[10][10];
 char answer_coors[17][2] = {{'B','2'},
 			    {'C','2'},
 			    {'D','2'},
+			    
 			    {'B','5'},
 			    {'B','6'},
 			    {'B','7'},
 			    {'B','8'},
 			    {'B','9'},
+			    
 			    {'E','5'},
 			    {'E','6'},
 			    {'E','7'},
+			    
 			    {'G','2'},
 			    {'H','2'},
 			    {'I','2'},
+			    
 			    {'I','0'},
 			    {'J','0'}};
 
@@ -81,22 +85,24 @@ int get_letter(char* coor){
   char s= coor[0];
   return 0;
 }
+
 //Returns 0 if that area was already hit.
 //Returns 1 if successful.
 int modify_grid(char mark, char * attack){
   int letter = attack[0] - 'A';
   int number = attack[1] - '0';
-  if (grid[letter][number] != '~'){
-    return 0;
+  if (grid[letter][number] == '~' || grid[letter][number] == '@'){
+    grid[letter][number] = mark;
+    return 1;
   }
-  grid[letter][number] = mark;
-  return 1;
+  printf("Area already hit\n");
+  return 0;
 }
 
 int check_hit(char * attack){
   int letter = attack[0] - 'A';
   int number = attack[1] - '0';
-  printf("Letter: %d\n Number: %d",letter,number);
+  printf("Letter: %d\n Number: %d\n",letter,number);
   for (int i = 0; i < 17; i++){
     int letter_coor = answer_coors[i][0] - 'A';
     int num_coor = answer_coors[i][1] - '0';
@@ -106,7 +112,7 @@ int check_hit(char * attack){
       return 1;
     }
   }
-  printf("Miss!\n");
+  printf("Miss...\n");
   modify_grid('O',attack);
   return 0;
 }
@@ -116,10 +122,14 @@ int check_hit(char * attack){
 int main(){
   initialize_grid();
   printf("\n\n\n");
-  // print_grid();
-  // check_hit("A0");
-  //check_hit("B2");
-  //modify_grid('A',"A0");
   print_grid();
+  check_hit("A0");
+  print_grid();
+  check_hit("A1");
+  print_grid();
+  check_hit("B2");
+  print_grid();
+	      
+  
   return 0;
 }
