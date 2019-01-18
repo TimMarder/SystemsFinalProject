@@ -6,6 +6,15 @@
 
 
 char grid[10][10];
+//int moves_saved = open("moves_saved.txt",O_WRONLY|O_CREAT,0744);
+void save_move(int file, char * coors){
+  write(file,coors,sizeof(char)*2);
+}
+int check_valid(char * coors){
+  
+  return 0;
+}
+
 
 //Sample coordinates for testing purposes
 char answer_coors[17][2] = {{'B','2'},
@@ -181,14 +190,12 @@ int main(){
   printf("\n\n\n");
   print_grid();
 
-  check_hit("A0");
-  print_grid();
-
-  check_hit("A1");
-  print_grid();
-
-  check_hit("B2");
-  print_grid();
-
+  printf("Select coordinates to attack:\n");
+  
+  char * steve = calloc(100,sizeof(char));
+  fgets(steve,100,stdin);
+  int moves_saved = open("moves_saved",O_WRONLY|O_CREAT,0744);
+  save_move(moves_saved, "A0");
+  close(moves_saved);
   return 0;
 }
