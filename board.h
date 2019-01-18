@@ -18,5 +18,5 @@ char **get_ship_placement();
 void place_ships();
 
 int under_attack(char *coor);
-void check_hit(char *attack);
+//void check_hit(char *attack);
 int check_lose();

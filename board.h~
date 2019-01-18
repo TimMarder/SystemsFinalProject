@@ -8,7 +8,7 @@ char *grid_one[10][10];
 char *grid_two[10][10];
 
 void populate_grid(char *grid[10][10]);
-void print_grid(char *grid[10][10]);
+void print_grid();
 
 int check_coor(char *coor);
 int get_alpha_coor(char *coor);

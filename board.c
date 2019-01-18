@@ -34,7 +34,6 @@ void initialize_grid(){
  
   //Where ship parts are, give them a '@' instead.
   for (int i = 0; i < 16; i++){
-
     //printf("Answer coordinates: %c %c",answer_coors[i][0],answer_coors[i][1]);
     int letter_coor = answer_coors[i][0] - 'A';
     printf("%d, ",letter_coor);
@@ -47,6 +46,7 @@ void initialize_grid(){
 
 //Prints out array.
 void print_grid(){
+  printf("A B C D E F G H I J\n");
   for (int i = 0; i < 10; i++){
     for (int j = 0; j < 10; j++){
        printf("%c ",grid[i][j]);
@@ -78,9 +78,18 @@ int get_letter(char* coor){
   return 0;
 }
 
+int check_hit(char * attack){
+  int letter = attack[0] - 'A';
+  printf('%s',attack[0]);
+  return 0;
+}
+
+
+
 int main(){
   initialize_grid();
   printf("\n\n\n");
   print_grid();
+  check_hit("A0");
   return 0;
 }
