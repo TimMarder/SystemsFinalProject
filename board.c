@@ -5,7 +5,7 @@
 #include "board.h"
 
 
-char * grid[10][10];
+char grid[10][10];
 //Sample coordinates for testing purposes
 char answer_coors[17][2] = {{'B','2'},
 			    {'C','2'},
@@ -25,21 +25,35 @@ char answer_coors[17][2] = {{'B','2'},
 			    {'J','0'}};
 
 void initialize_grid(){
-
   //Sets everything up as blank at first
   for (int r = 0; r < 10; r++){
     for (int c = 0; c < 10; c++){
-      &grid[r][c] = '~';
+      grid[r][c] = '~';
     }
   }
-  //Where ship parts are
-  for (int i = 0; i < 17; i++){
-    int num_coor = answer_coors[i][0] - 'A';
-    printf("Answer coordinates: %c %c",answer_coors[i][0],answer_coors[i][1]);
+ 
+  //Where ship parts are, give them a '@' instead.
+  for (int i = 0; i < 16; i++){
+
+    //printf("Answer coordinates: %c %c",answer_coors[i][0],answer_coors[i][1]);
+    int letter_coor = answer_coors[i][0] - 'A';
+    printf("%d, ",letter_coor);
+    int num_coor = answer_coors[i][1] - '0';
+    printf("%d",num_coor);
+    printf("\n");
+    grid[letter_coor][num_coor] = '@';
   }
 }
 
+//Prints out array.
 void print_grid(){
+  for (int i = 0; i < 10; i++){
+    for (int j = 0; j < 10; j++){
+       printf("%c ",grid[i][j]);
+    }
+    printf("\n");
+  }
+  return;
 } 
 
 char ** get_ship_coors(){
@@ -47,18 +61,26 @@ char ** get_ship_coors(){
   char * buffer = malloc(sizeof(char)*25);
   int result = read(fd,buffer,sizeof(char)*25);
   char ** ans = calloc(256,5);
+  return ans;
 }
 int hit_detection(char * coors){
   if (strlen(coors) != 2){
     printf("Invalid command: Not even the right size! \n Valid commands could include: A9, B6, C4, F6");
   }
-  int letter = get_letter(coors);
-  int number = get_number(coors);
+  // int letter = get_letter(coors);
+  // int number = get_number(coors);
   for (int i = 0; i < 17; i++){
   }
+  return 0;
+}
+int get_letter(char* coor){
+  char s= coor[0];
+  return 0;
 }
 
 int main(){
-  initalize_grid();
+  initialize_grid();
+  printf("\n\n\n");
+  print_grid();
   return 0;
 }

@@ -25,6 +25,31 @@ int destroyer_coors[3];
 char *grid_one[10][10];
 char *grid_two[10][10];
 
+int check_coor(char *coor){
+  if(strlen(coor) != 2)
+    return 0;
+  else if(coor[0] < 'A' || coor[0] > 'J')
+    return 0;
+  else if(coor[1] < '0' || coor[1] > '9')
+    return 0;
+  else
+    return 1;
+}
+
+char **get_ship_placement(){
+  int fd = open("alphaCoords.txt", O_RDONLY);
+  char *buffer = malloc(sizeof(char)*25);
+  int result = read(fd, buffer, sizeof(char)*25);
+  printf("%s\n", buffer);
+  char **arr = calloc(256, 5);
+  for(int i = 0; i < 5; i++){
+    arr[i] = strsep(&buffer, "\n");
+    printf("%s\t", arr[i]);
+  }
+  printf("\n");
+  return arr;
+}
+
 int ship_coors[17][2]; //2D Array: 5+4+3+3+2 = 17; 17/100 squares have a ship on them.  Ex: {{0,0},{0,1},{0,2},{0,3}} 
 
 //Returns -1 if coordinates hit area already targeted OR if those are invalid coordinates.
