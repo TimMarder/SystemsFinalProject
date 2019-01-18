@@ -21,6 +21,7 @@ int main() {
 }
 
 void subserver(int client_socket) {
+
   char buffer[BUFFER_SIZE];
 
   while (read(client_socket, buffer, sizeof(buffer))) {
@@ -28,17 +29,24 @@ void subserver(int client_socket) {
     printf("[subserver %d] received: [%s]\n", getpid(), buffer);
     process(buffer);
     write(client_socket, buffer, sizeof(buffer));
+
   }//end read loop
+
   close(client_socket);
   exit(0);
+
 }
 
 void process(char * s) {
+
   while (*s) {
+
     if (*s >= 'a' && *s <= 'z')
       *s = ((*s - 'a') + 13) % 26 + 'a';
     else  if (*s >= 'A' && *s <= 'Z')
       *s = ((*s - 'a') + 13) % 26 + 'a';
     s++;
+
   }
+  
 }
