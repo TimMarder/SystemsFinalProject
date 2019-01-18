@@ -33,7 +33,7 @@ void initialize_grid(){
   }
  
   //Where ship parts are, give them a '@' instead.
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 16; i++){
     //printf("Answer coordinates: %c %c",answer_coors[i][0],answer_coors[i][1]);
     int letter_coor = answer_coors[i][0] - 'A';
     printf("%d, ",letter_coor);
