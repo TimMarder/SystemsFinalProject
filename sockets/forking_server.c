@@ -1,4 +1,6 @@
 #include "networking.h"
+#include "boardgen.h"
+#include "gameplay.h"
 
 void process(char *s);
 void subserver(int from_client);
@@ -24,12 +26,28 @@ void subserver(int client_socket) {
 
   char buffer[BUFFER_SIZE];
 
+  //WELCOME
+  printf("[subserver %d] received: [%s]\n", getpid(), buffer);
+  printf("Welcome to Battleships!\n");
+  populate_grid(grid_one);
+  populate_grid(grid_two);
+  print_grids();
+  //SETUP
+  printf("Please input your ship coordinates in the file alphaCoords.txt provided\nFormat:RowColumnOrientationLength\nNew line for each ship\nExample:\nA4H5\n");
+  printf("Ready? Hit Enter:\t");
+  fgets(buffer, sizeof(buffer), stdin);
+  get_ship_placement();
+  place_ships();
+  print_grids();
+  strcpy(buffer, "Opponent's Ships are Ready");
+  write(client_socket, buffer, sizeof(buffer));
+  read(client_socket, buffer, sizeof(buffer));
+  printf("received: [%s]\n", buffer);
+    
   while (read(client_socket, buffer, sizeof(buffer))) {
-
-    printf("[subserver %d] received: [%s]\n", getpid(), buffer);
     process(buffer);
     write(client_socket, buffer, sizeof(buffer));
-
+    
   }//end read loop
 
   close(client_socket);
