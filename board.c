@@ -33,11 +33,11 @@ void initialize_grid(){
   }
  
   //Where ship parts are, give them a '@' instead.
-  for (int i = 0; i < 16; i++){
+  for (int i = 0; i < 5; i++){
     //printf("Answer coordinates: %c %c",answer_coors[i][0],answer_coors[i][1]);
     int letter_coor = answer_coors[i][0] - 'A';
     printf("%d, ",letter_coor);
-    int num_coor = answer_coors[i][1] - '0';
+    int num_coor = answer_coors[i][1] - '0'; 
     printf("%d",num_coor);
     printf("\n");
     grid[letter_coor][num_coor] = '@';
@@ -46,13 +46,15 @@ void initialize_grid(){
 
 //Prints out array.
 void print_grid(){
+  char letters[] = {'A','B','C','D','E','F','G','H','I','J'};
+		    
   int row = 0;
-  printf("A B C D E F G H I J\n");
+  printf("0 1 2 3 4 5 6 7 8 9\n");
   for (int i = 0; i < 10; i++){
     for (int j = 0; j < 10; j++){
        printf("%c ",grid[i][j]);
     }
-    printf("%d\n",row);
+    printf("%c\n",letters[row]);
     row++;
   }
   return;
@@ -81,8 +83,14 @@ int get_letter(char* coor){
 }
 //Returns 0 if that area was already hit.
 //Returns 1 if successful.
-int modify_grid(char mark, char * coors){
-  return 0;
+int modify_grid(char mark, char * attack){
+  int letter = attack[0] - 'A';
+  int number = attack[1] - '0';
+  if (grid[letter][number] != '~'){
+    return 0;
+  }
+  grid[letter][number] = mark;
+  return 1;
 }
 
 int check_hit(char * attack){
@@ -94,10 +102,12 @@ int check_hit(char * attack){
     int num_coor = answer_coors[i][1] - '0';
     if (letter == letter_coor && number == num_coor){
       printf("Hit!\n");
+      modify_grid('X',attack);
       return 1;
     }
   }
   printf("Miss!\n");
+  modify_grid('O',attack);
   return 0;
 }
 
@@ -106,8 +116,10 @@ int check_hit(char * attack){
 int main(){
   initialize_grid();
   printf("\n\n\n");
+  // print_grid();
+  // check_hit("A0");
+  //check_hit("B2");
+  //modify_grid('A',"A0");
   print_grid();
-  check_hit("Z0");
-  check_hit("B2");
   return 0;
 }
