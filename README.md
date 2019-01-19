@@ -42,6 +42,9 @@
 
 ### January 18 (Sophia)
   * Finished game, move communication between server and client.
+  
+### January 19 (Anand)
+  * SigHandler
 
 
  * Thanks for the great semester, Mr. DW!
