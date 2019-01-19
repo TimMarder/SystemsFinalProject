@@ -43,22 +43,8 @@
   * Finished game, move communication between server and client.
 
 
-                        (####)
-                       (#######)
-                     (#########)
-                    (#########)
-    __&__          (#########)
-   /     \        (#########)   |\/\/\/|     /\ /\  /\               /\
-  |       |      (#########)    |      |     | v  \/  \---.    .----/  \----.
-  |  (o)(o)       (o)(o)(##)    |      |      \_        /       \          /
-  c   .---_)    ,_c     (##)    | (o)(o)       (o)(o)  <__.   .--\ (o)(o) /__.
-   | |.___|    /____,   (##)    c      _)     _c         /     \     ()     /
-   |  \__/       \     (#)       | ,___|     /____,   )  \      >   (c_)   <
-   /_____\        |    |         |   /         \     /----'    /___\____/___\
-  /_____/ \       oooooo        /____\          ooooo             /|    |\
- /         \     /      \      /      \        /     \           /        \
- Mr. DW's Room  Mr. K's room  Mr. Platek's room Mr. Brook's room(?) No one's room
- 
-   
  * Thanks for the great semester, Mr. DW!
+ - Tim, Sophia, Anand
+ 
+ 
 
