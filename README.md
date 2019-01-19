@@ -12,7 +12,8 @@
   * No external libraries needed.
 
 ## How to run
-  * On two separate terminals, please run "make" after cd'ing into the "sockets" directory, followed by a /.client in one terminal and /.server in the other.
+  * Please cd into the "sockets" directory, and run "make".  
+  * Open ./server in that terminal, and then open a second terminal (in the same computer) and open ./client.
   * Moves can be inputted as any standard grid coordinate system for Battleship.  Examples: "A1","B7","G4"
 
 ## Devlog
