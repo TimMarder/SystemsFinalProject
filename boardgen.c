@@ -112,7 +112,7 @@ char *under_attack(char *coor){
 void check_hit(char *attack, int i){
   int a = get_alpha_coor(attack);
   int n = get_num_coor(attack);
-  if(i)
+  if(i == '1')
     grid_one[a][n] = "X ";
   else
     grid_one[a][n] = "O ";

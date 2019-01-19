@@ -16,6 +16,10 @@
   * Open ./server in that terminal, and then open a second terminal (in the same computer) and open ./client.
   * Moves can be inputted as any standard grid coordinate system for Battleship.  Examples: "A1","B7","G4"
 
+## Known Bugs
+  * Dependent on user to follow the instructions (didn't check for input errors)
+  * Ctrl-C on opponents turn doesn't alert opponent of your surrender (must surrender on your turn for it to properly)
+
 ## Devlog
 
 

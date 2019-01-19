@@ -1,11 +1,30 @@
 #include "networking.h"
 #include "boardgen.h"
 
+int server_socket;
+char buffer[BUFFER_SIZE];
+char coor[2];
+int mid_game = 1;
+
+static void sighandler(int signo){
+  if(signo == SIGINT){
+    if(mid_game){
+      printf("\nSurrendering the game :(\n");
+      strcpy(buffer, "Opponent surrenders the game: you win!");
+      write(server_socket, buffer, sizeof(buffer));
+      exit(0);
+    }
+    else{
+      strcpy(buffer, "Opponent has left!");
+      write(server_socket, buffer, sizeof(buffer));
+      exit(0);
+    }
+  }
+}
+
 int main(int argc, char **argv) {
 
-  int server_socket;
-  char buffer[BUFFER_SIZE];
-  char coor[2];
+  signal(SIGINT, sighandler);
   
   if (argc == 2)
     server_socket = client_setup( argv[1]);
@@ -48,16 +67,23 @@ int main(int argc, char **argv) {
 
     printf("\nOpponent's Turn\n");
     read(server_socket, buffer, sizeof(buffer));
+    if(strcmp(buffer, "Opponent surrenders the game: you win!") == 0){
+      printf("%s\n", buffer);
+      break;
+    }
     strcpy(buffer, under_attack(buffer));
     printf("\e[1;1H\e[2J");
     print_grids();
     write(server_socket, buffer, sizeof(buffer));
   }
-  
+  mid_game = 0;
   if(check_lose()){
     printf("You Lost :(\n");
     strcpy(buffer, "You Won!\n");
     write(server_socket, buffer, sizeof(buffer));
+  }
+  else if(strcmp(buffer, "Opponent has left!") == 0){
+    printf("%s", buffer);
   }
   else{
     printf("You Won!\n");
