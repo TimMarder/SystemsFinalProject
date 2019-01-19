@@ -22,6 +22,20 @@ int main() {
   }
 }
 
+//Returns -1 if unsuccessful
+int check_valid(char * input){
+  if (strlen(input) != 2){
+    printf("Invalid length input\n");
+    exit(0);
+    return -1;
+  }
+  if (input[0] - 'A' < 0 || input[1] - '0' < 0){
+    printf("It has to be a letter followed by a number (A2, for instance\n");
+    exit(0);
+    return -1;
+  }
+  return 0;
+}
 void subserver(int client_socket) {
 
   char buffer[BUFFER_SIZE];
@@ -38,7 +52,6 @@ void subserver(int client_socket) {
   fgets(buffer, sizeof(buffer), stdin);
   get_ship_placement();
   place_ships();
-  printf("\e[1;1H\e[2J");
   print_grids();
   strcpy(buffer, "Opponent's Ships are Ready");
   write(client_socket, buffer, sizeof(buffer));
@@ -50,13 +63,13 @@ void subserver(int client_socket) {
     printf("\nOpponent's Turn\n");
     read(client_socket, buffer, sizeof(buffer));
     strcpy(buffer, under_attack(buffer));
-    printf("\e[1;1H\e[2J");
     print_grids();
     write(client_socket, buffer, sizeof(buffer));
-    
+
     //enter coordinates
     printf("enter coordinates: ");
     fgets(buffer, sizeof(buffer), stdin);
+    check_valid(buffer);
     *strchr(buffer, '\n') = 0;
     strncpy(coor, buffer, 2);
     //send coordinates
@@ -65,18 +78,17 @@ void subserver(int client_socket) {
     read(client_socket, buffer, sizeof(buffer));    
     printf("received: [%s]\n", buffer);
     check_hit(coor, buffer[0]);
-    printf("\e[1;1H\e[2J");
     print_grids();
 
   }//end read loop
 
   if(check_lose()){
-    printf("You Lost :(\n");
-    strcpy(buffer, "You Won!\n");
+    printf("You Lost :(");
+    strcpy(buffer, "You Won!");
     write(client_socket, buffer, sizeof(buffer));
   }
   else{
-    printf("You Won!\n");
+    printf("You Won!");
   }
   
   close(client_socket);
