@@ -1,5 +1,12 @@
 #include "networking.h"
 
+static void sighandler(int signo){
+  if (signo == SIGINT){
+    remove("sd");
+    exit(1);
+  }
+}
+
 void error_check( int i, char *s ) {
 
   if ( i < 0 ) {
