@@ -19,6 +19,7 @@
 ## Known Bugs
   * Dependent on user to follow the instructions (didn't check for input errors)
   * Ctrl-C on opponents turn doesn't alert opponent of your surrender (must surrender on your turn for it to properly)
+  * When the server surrenders, both server and client will exit. However when trying to run servre again, it will say that the address is already in use
 
 ## Devlog
 
