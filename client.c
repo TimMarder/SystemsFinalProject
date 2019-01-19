@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
   fgets(buffer, sizeof(buffer), stdin);
   get_ship_placement();
   place_ships();
+  printf("\e[1;1H\e[2J");
   print_grids();
   strcpy(buffer, "Opponent's Ships are Ready");
   write(server_socket, buffer, sizeof(buffer));
@@ -42,22 +43,24 @@ int main(int argc, char **argv) {
     read(server_socket, buffer, sizeof(buffer));    
     printf("received: [%s]\n", buffer);
     check_hit(coor, buffer[0]);
+    printf("\e[1;1H\e[2J");
     print_grids();
 
     printf("\nOpponent's Turn\n");
     read(server_socket, buffer, sizeof(buffer));
     strcpy(buffer, under_attack(buffer));
+    printf("\e[1;1H\e[2J");
     print_grids();
     write(server_socket, buffer, sizeof(buffer));
   }
   
   if(check_lose()){
-    printf("You Lost :(");
-    strcpy(buffer, "You Won!");
+    printf("You Lost :(\n");
+    strcpy(buffer, "You Won!\n");
     write(server_socket, buffer, sizeof(buffer));
   }
   else{
-    printf("You Won!");
+    printf("You Won!\n");
   }
   
 }

@@ -38,6 +38,7 @@ void subserver(int client_socket) {
   fgets(buffer, sizeof(buffer), stdin);
   get_ship_placement();
   place_ships();
+  printf("\e[1;1H\e[2J");
   print_grids();
   strcpy(buffer, "Opponent's Ships are Ready");
   write(client_socket, buffer, sizeof(buffer));
@@ -49,9 +50,10 @@ void subserver(int client_socket) {
     printf("\nOpponent's Turn\n");
     read(client_socket, buffer, sizeof(buffer));
     strcpy(buffer, under_attack(buffer));
+    printf("\e[1;1H\e[2J");
     print_grids();
     write(client_socket, buffer, sizeof(buffer));
-
+    
     //enter coordinates
     printf("enter coordinates: ");
     fgets(buffer, sizeof(buffer), stdin);
@@ -63,17 +65,18 @@ void subserver(int client_socket) {
     read(client_socket, buffer, sizeof(buffer));    
     printf("received: [%s]\n", buffer);
     check_hit(coor, buffer[0]);
+    printf("\e[1;1H\e[2J");
     print_grids();
 
   }//end read loop
 
   if(check_lose()){
-    printf("You Lost :(");
-    strcpy(buffer, "You Won!");
+    printf("You Lost :(\n");
+    strcpy(buffer, "You Won!\n");
     write(client_socket, buffer, sizeof(buffer));
   }
   else{
-    printf("You Won!");
+    printf("You Won!\n");
   }
   
   close(client_socket);
