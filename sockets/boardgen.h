@@ -17,6 +17,6 @@ int get_num_coor(char *coor);
 char **get_ship_placement();
 void place_ships();
 
-int under_attack(char *coor);
+char *under_attack(char *coor);
 void check_hit(char *attack, int i);
 int check_lose();

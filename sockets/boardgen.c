@@ -96,16 +96,16 @@ void place_ships(){
   }
 }
 
-int under_attack(char *coor){
+char *under_attack(char *coor){
   int a = get_alpha_coor(coor);
   int n = get_num_coor(coor);
   if(grid_two[a][n] == "@ "){
     grid_two[a][n] = "X ";
-    return 1;
+    return "1";
   }
   else{
     grid_two[a][n] = "O ";
-    return 0;
+    return "0";
   }
 }
 

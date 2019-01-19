@@ -1,9 +1,9 @@
 #include "networking.h"
 #include "boardgen.h"
-#include "gameplay.h"
 
 void process(char *s);
 void subserver(int from_client);
+char coor[2];
 
 int main() {
 
@@ -43,28 +43,40 @@ void subserver(int client_socket) {
   write(client_socket, buffer, sizeof(buffer));
   read(client_socket, buffer, sizeof(buffer));
   printf("received: [%s]\n", buffer);
-    
-  while (read(client_socket, buffer, sizeof(buffer))) {
-    process(buffer);
+  
+  while(!check_lose() || strcmp(buffer, "You Won!") == 0){
+    //get coordinates
+    printf("\nOpponent's Turn\n");
+    read(client_socket, buffer, sizeof(buffer));
+    strcpy(buffer, under_attack(buffer));
+    print_grids();
     write(client_socket, buffer, sizeof(buffer));
-    
+
+    //enter coordinates
+    printf("enter coordinates: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    *strchr(buffer, '\n') = 0;
+    strncpy(coor, buffer, 2);
+    //send coordinates
+    write(client_socket, buffer, sizeof(buffer));
+    //hit?
+    read(client_socket, buffer, sizeof(buffer));    
+    printf("received: [%s]\n", buffer);
+    check_hit(coor, buffer[0]);
+    print_grids();
+
   }//end read loop
 
+  if(check_lose()){
+    printf("You Lost :(");
+    strcpy(buffer, "You Won!");
+    write(client_socket, buffer, sizeof(buffer));
+  }
+  else{
+    printf("You Won!");
+  }
+  
   close(client_socket);
   exit(0);
 
-}
-
-void process(char * s) {
-
-  while (*s) {
-
-    if (*s >= 'a' && *s <= 'z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    else  if (*s >= 'A' && *s <= 'Z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    s++;
-
-  }
-  
 }
